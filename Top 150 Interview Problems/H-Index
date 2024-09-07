@@ -1,0 +1,35 @@
+class Solution
+{
+    static void Main()
+    {
+        int[] citations = { 1, 3, 1 };
+        Console.Write(HIndex(citations));
+    }
+    public static int HIndex(int[] citations)
+    {
+        Array.Sort(citations);
+
+        int hindex = 0;
+        int papers = citations.Length;
+
+        if (papers == 0) return 0;
+
+        if (papers == 1) return 1;
+
+        for(int i = 0; i < citations.Length - 1; i++)
+        {
+            int citation = citations[i];
+
+            if (HIndexHelper(papers, citation)) hindex = citation;
+            else break;
+
+            papers--;
+        }
+
+        return hindex;
+
+    }
+
+    static bool HIndexHelper(int papers, int citations) => papers >= citations;
+
+}
